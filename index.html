@@ -1,27 +1,3 @@
-<audio id="nhac-nen" src="nhac.mp3" autoplay loop></audio>
-
-<script>
-  // Lấy phần tử audio bằng ID
-  var audioPlayer = document.getElementById('nhac-nen');
-
-  // Đặt âm lượng tối đa (1.0)
-  // Đợi metadata của file nhạc được tải để đảm bảo việc đặt âm lượng hoạt động
-  audioPlayer.onloadedmetadata = function() {
-    audioPlayer.volume = 1.0; 
-  };
-  
-  // Quan trọng: Thử gọi .play() để vượt qua các hạn chế của trình duyệt hiện đại
-  // và đặt âm lượng sau khi gọi play()
-  audioPlayer.play().then(function() {
-    audioPlayer.volume = 1.0; 
-  }).catch(function(error) {
-    // Nếu trình duyệt chặn Autoplay (vì nhạc có tiếng), bạn cần thông báo/yêu cầu người dùng tương tác.
-    console.log("Trình duyệt đã chặn tính năng tự động phát nhạc có tiếng. Cần người dùng tương tác.");
-    
-    // Nếu bạn muốn đảm bảo nó chạy không tiếng (muted), hãy thêm thuộc tính 'muted' vào thẻ audio:
-    // <audio id="nhac-nen" src="nhac.mp3" autoplay loop muted></audio>
-  });
-</script>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -181,21 +157,20 @@
     </style>
 </head>
 <body>
+    <audio id="nhac-nen" src="nhac.mp3" autoplay loop muted></audio>
+
     <div class="container">
-        <!-- Màn hình 1: Phong bì -->
         <div id="screen-1" class="screen active">
             <img src="https://thumbs.dreamstime.com/b/heart-card-love-note-pink-romantic-message-cute-envelope-handmade-doodle-style-design-perfect-valentine-celebration-413266197.jpg" alt="Phong bì" class="envelope">
             <div class="hint">Nhấn vào phong bì đi nào ♡</div>
         </div>
 
-        <!-- Màn hình 2: Lời chúc đầu -->
         <div id="screen-2" class="screen">
             <h1>Sinh Nhật Vui Vẻ!</h1>
             <img src="https://media.tenor.com/KN1Hrg7D10UAAAAM/my-melody-sanrio.gif" alt="My Melody tặng quà">
             <button class="btn btn-heart">Nhấn trái tim ♡</button>
         </div>
 
-        <!-- Màn hình 3: Lời chúc chính -->
         <div id="screen-3" class="screen">
             <img src="anh2.jpg" alt="Nơ hồng" class="bow">
             <div class="message-box">
@@ -205,7 +180,6 @@
             <button class="btn">Nhấn tiếp đi ♡</button>
         </div>
 
-        <!-- Màn hình 4: Đếm ngược -->
         <div id="screen-4" class="screen">
             <img src="https://media.tenor.com/pDBImHYGbgwAAAAM/my-melody-sanrio.gif" alt="My Melody dễ thương">
             <p style="font-size:1.8rem;margin:30px 0;">Đếm ngược đến ngày đặc biệt của em ♡</p>
@@ -218,7 +192,6 @@
             <button class="btn">Nhấn tiếp đi ♡</button>
         </div>
 
-        <!-- Màn hình 5: Ảnh hồi bé (trêu đùa vui vui) -->
         <div id="screen-5" class="screen">
             <img src="anh.jpg" alt="Ảnh bé funny" class="photo" style="max-width:300px;">
                     <p style="max-width:90%;margin-top:30px;">Chúc mừng sinh nhật vị nha sĩ xinh đẹp!
@@ -229,7 +202,6 @@ Chúc em tuổi mới luôn vui vẻ và thành công!♡</p>
             <button class="btn">Nhấn tiếp đi ♡</button>
         </div>
 
-        <!-- Màn hình 6: Kết thúc -->
         <div id="screen-6" class="screen">
             <img src="https://i.pinimg.com/474x/f5/64/af/f564af581b39069ebe08d0b2f960189e.jpg" alt="Cupcake My Melody">
             <p style="font-size:2rem;margin-top:30px;">Chúc sinh nhật em vui vẻ lần nữa nha ♡</p>
@@ -237,16 +209,42 @@ Chúc em tuổi mới luôn vui vẻ và thành công!♡</p>
     </div>
 
     <script>
-        // Ngày sinh nhật: 16 tháng 12 năm 2025 (hôm nay 15/12 nên countdown 1 ngày)
+        // Ngày sinh nhật: 16 tháng 12 năm 2025
         const targetDate = new Date('2025-12-16T00:00:00');
+
+        // Lấy phần tử audio
+        const audioPlayer = document.getElementById('nhac-nen');
 
         function switchScreen(current, next) {
             document.getElementById(current).classList.remove('active');
             document.getElementById(next).classList.add('active');
         }
+        
+        // --- CHỨC NĂNG BẬT TIẾNG & ĐẶT ÂM LƯỢNG KHI CÓ TƯƠNG TÁC ---
+        function enableAudio() {
+            // Đặt âm lượng tối đa (1.0)
+            audioPlayer.volume = 1.0; 
+            
+            // Bỏ chế độ tắt tiếng
+            audioPlayer.muted = false; 
+            
+            // Đảm bảo nhạc phát (nếu bị chặn trước đó, lần gọi này được phép vì đã có tương tác)
+            audioPlayer.play().catch(e => console.log("Không thể phát nhạc sau tương tác:", e));
 
-        // Chuyển màn hình
-        document.getElementById('screen-1').addEventListener('click', () => switchScreen('screen-1', 'screen-2'));
+            // Gỡ bỏ sự kiện này sau khi đã thực hiện để tránh lặp lại
+            document.getElementById('screen-1').removeEventListener('click', handleFirstInteraction);
+        }
+
+        function handleFirstInteraction() {
+            enableAudio();
+            switchScreen('screen-1', 'screen-2');
+        }
+        
+        // Gán sự kiện cho lần tương tác đầu tiên (Nhấn phong bì)
+        document.getElementById('screen-1').addEventListener('click', handleFirstInteraction);
+        // -----------------------------------------------------------------
+
+        // Các sự kiện chuyển màn hình còn lại
         document.querySelector('#screen-2 .btn-heart').addEventListener('click', () => switchScreen('screen-2', 'screen-3'));
         document.querySelector('#screen-3 .btn').addEventListener('click', () => switchScreen('screen-3', 'screen-4'));
         document.querySelector('#screen-4 .btn').addEventListener('click', () => switchScreen('screen-4', 'screen-5'));
