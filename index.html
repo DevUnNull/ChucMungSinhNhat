@@ -14,7 +14,6 @@
             --pink-dark: #ff80ab;
             --red-heart: #ff1744;
             --text-dark: #d81b60;
-            /* FONT CHÍNH: ĐÃ CHỈNH SỬA THÀNH 'Mali' */
             --font-main: 'Mali', cursive; 
         }
 
@@ -25,7 +24,6 @@
         }
 
         body {
-            /* SỬ DỤNG FONT MỚI */
             font-family: var(--font-main);
             background: var(--pink-light) url('https://png.pngtree.com/background/20220731/original/pngtree-cute-pink-kawaii-background-strawberry-picture-image_1912741.jpg') repeat;
             background-size: 400px;
@@ -33,13 +31,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            /* Đảm bảo nội dung không tràn ra ngoài body */
+            overflow-x: hidden; 
         }
 
         .container {
             width: 100%;
             max-width: 420px;
-            height: 100vh;
+            /* ĐIỀU CHỈNH QUAN TRỌNG: Loại bỏ height: 100vh cố định */
+            min-height: 100vh;
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -60,6 +60,10 @@
             transition: opacity 1s ease;
             text-align: center;
             padding: 20px;
+            /* ĐIỀU CHỈNH CHO MOBILE: Cho phép cuộn nếu nội dung quá dài (chỉ nên xảy ra hiếm hoi) */
+            max-height: 100vh; 
+            overflow-y: auto; 
+            -webkit-overflow-scrolling: touch;
         }
 
         .screen.active {
@@ -67,29 +71,23 @@
             pointer-events: all;
         }
 
+        /* Tối ưu hóa kích thước chữ cho màn hình nhỏ hơn */
         h1 {
-            font-size: 3rem;
+            font-size: 2.5rem; /* Giảm từ 3rem */
             color: var(--red-heart);
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* Giảm margin */
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
         p {
-            font-size: 1.2rem;
+            font-size: 1.1rem; /* Giảm từ 1.2rem */
             color: var(--text-dark);
-            line-height: 1.6;
-            margin: 20px 0;
+            line-height: 1.5;
+            margin: 15px 0; /* Giảm margin */
         }
 
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        video {
-            max-width: 100%;
+        img, video {
+            max-width: 90%; /* Đảm bảo hình ảnh/video không vượt quá 90% chiều rộng màn hình */
             height: auto;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -97,74 +95,78 @@
 
         .envelope {
             cursor: pointer;
-            max-width: 300px;
+            max-width: 250px; /* Giảm kích thước phong bì */
         }
 
         .hint {
-            margin-top: 40px;
-            font-size: 1.3rem;
+            margin-top: 30px; /* Giảm margin */
+            font-size: 1.2rem; /* Giảm từ 1.3rem */
             color: var(--pink-dark);
         }
 
         .btn {
-            margin-top: 40px;
-            padding: 15px 30px;
+            margin-top: 25px; /* Giảm margin */
+            padding: 12px 25px; /* Giảm padding */
+            font-size: 1.2rem; /* Giảm từ 1.4rem */
+            /* Các style khác giữ nguyên */
             background: var(--pink-main);
             border: 3px dashed var(--pink-dark);
             border-radius: 50px;
-            font-size: 1.4rem;
             color: var(--text-dark);
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .btn-heart {
+            width: 100px; /* Giảm kích thước trái tim */
+            height: 100px;
+            /* Các style khác giữ nguyên */
             background: url('https://i.etsystatic.com/25364213/r/il/594e4b/5148949664/il_570xN.5148949664_kfr9.jpg') center/cover;
-            width: 120px;
-            height: 120px;
             border: none;
             border-radius: 50%;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: white;
             text-shadow: 1px 1px 2px black;
         }
 
         .message-box {
+            padding: 20px; /* Giảm padding */
+            /* Các style khác giữ nguyên */
             background: rgba(255, 255, 255, 0.7);
             border: 4px dotted var(--pink-dark);
             border-radius: 20px;
-            padding: 30px;
             max-width: 90%;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .bow {
-            width: 150px;
-            margin-bottom: 20px;
+            width: 120px; /* Giảm kích thước nơ */
+            margin-bottom: 15px;
         }
 
         .counter {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 30px 0;
-            font-size: 1.5rem;
-            color: var(--text-dark);
+            gap: 10px; /* Giảm khoảng cách giữa các phần tử */
+            margin: 20px 0;
+            font-size: 1.3rem;
             flex-wrap: wrap;
         }
 
         .counter span {
-            background: var(--pink-main);
-            padding: 10px 20px;
-            border-radius: 15px;
-            min-width: 100px;
+            padding: 8px 15px;
+            min-width: 80px;
         }
-
-        .photo {
-            border: 10px solid white;
-            border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-            filter: sepia(0.2) brightness(1.1);
+        
+        /* Tối ưu hóa riêng cho màn hình nhỏ hơn 480px */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            p {
+                font-size: 1.0rem;
+            }
+            .counter span {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -194,7 +196,7 @@
 
         <div id="screen-4" class="screen">
             <img src="https://media.tenor.com/pDBImHYGbgwAAAAM/my-melody-sanrio.gif" alt="My Melody dễ thương">
-            <p style="font-size:1.8rem;margin:30px 0;">Đếm ngược đến ngày đặc biệt của em ♡</p>
+            <p style="font-size:1.6rem;margin:20px 0;">Đếm ngược đến ngày đặc biệt của em ♡</p>
             <div class="counter">
                 <span id="days">0 Ngày</span> |
                 <span id="hours">00 Giờ</span> |
@@ -205,8 +207,8 @@
         </div>
 
         <div id="screen-5" class="screen">
-            <img src="anh.jpg" alt="Ảnh bé funny" class="photo" style="max-width:300px;">
-                    <p style="max-width:90%;margin-top:30px;">Chúc mừng sinh nhật vị nha sĩ xinh đẹp!
+            <img src="anh.jpg" alt="Ảnh bé funny" class="photo" style="max-width:250px;">
+                    <p style="max-width:90%;margin-top:20px;font-size:1.1rem;">Chúc mừng sinh nhật vị nha sĩ xinh đẹp!
 Thật may mắn cho em, vì em có thể dùng sự khéo léo để tạo ra những nụ cười rạng rỡ cho mọi người. 
 Còn anh, anh chỉ muốn dùng kinh nghiệm của một người làm Công an để đảm bảo "an ninh tuyệt đối" cho nụ cười rạng rỡ đó của riêng em thôi.
 Chúc em tuổi mới luôn vui vẻ và thành công!♡</p>
@@ -216,7 +218,7 @@ Chúc em tuổi mới luôn vui vẻ và thành công!♡</p>
 
         <div id="screen-6" class="screen">
             <video id="final-video" src="video.mp4" playsinline controls></video>
-            <p style="font-size:2rem;margin-top:30px;">Chúc sinh nhật em vui vẻ lần nữa nha ♡</p>
+            <p style="font-size:1.8rem;margin-top:20px;">Chúc sinh nhật em vui vẻ lần nữa nha ♡</p>
         </div>
     </div>
 
