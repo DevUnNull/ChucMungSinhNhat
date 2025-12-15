@@ -83,6 +83,14 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
+        /* Thêm style cho video để nó vừa vặn */
+        video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
         .envelope {
             cursor: pointer;
             max-width: 300px;
@@ -203,7 +211,7 @@ Chúc em tuổi mới luôn vui vẻ và thành công!♡</p>
         </div>
 
         <div id="screen-6" class="screen">
-            <img src="https://i.pinimg.com/474x/f5/64/af/f564af581b39069ebe08d0b2f960189e.jpg" alt="Cupcake My Melody">
+            <video id="final-video" src="video.mp4" playsinline controls></video>
             <p style="font-size:2rem;margin-top:30px;">Chúc sinh nhật em vui vẻ lần nữa nha ♡</p>
         </div>
     </div>
@@ -212,44 +220,57 @@ Chúc em tuổi mới luôn vui vẻ và thành công!♡</p>
         // Ngày sinh nhật: 16 tháng 12 năm 2025
         const targetDate = new Date('2025-12-16T00:00:00');
 
-        // Lấy phần tử audio
+        // Lấy phần tử audio và video
         const audioPlayer = document.getElementById('nhac-nen');
+        const finalVideo = document.getElementById('final-video');
 
         function switchScreen(current, next) {
             document.getElementById(current).classList.remove('active');
             document.getElementById(next).classList.add('active');
         }
         
-        // --- CHỨC NĂNG BẬT TIẾNG & ĐẶT ÂM LƯỢNG KHI CÓ TƯƠNG TÁC ---
-        function enableAudio() {
-            // Đặt âm lượng tối đa (1.0)
+        // --- CHỨC NĂNG BẬT TIẾNG & ĐẶT ÂM LƯỢNG (Dùng cho nhạc nền) ---
+        function enableBackgroundAudio() {
             audioPlayer.volume = 1.0; 
-            
-            // Bỏ chế độ tắt tiếng
             audioPlayer.muted = false; 
-            
-            // Đảm bảo nhạc phát (nếu bị chặn trước đó, lần gọi này được phép vì đã có tương tác)
-            audioPlayer.play().catch(e => console.log("Không thể phát nhạc sau tương tác:", e));
+            audioPlayer.play().catch(e => console.log("Không thể phát nhạc nền sau tương tác:", e));
 
             // Gỡ bỏ sự kiện này sau khi đã thực hiện để tránh lặp lại
             document.getElementById('screen-1').removeEventListener('click', handleFirstInteraction);
         }
 
+        // --- CHỨC NĂNG PHÁT VIDEO & TẮT NHẠC NỀN (Dùng cho màn hình 6) ---
+        function playVideoAndStopBackground() {
+            // 1. Tắt nhạc nền
+            audioPlayer.pause();
+            audioPlayer.currentTime = 0; // Đặt lại về đầu nếu cần
+
+            // 2. Thiết lập và phát video
+            finalVideo.volume = 1.0; // Volume max
+            finalVideo.play().catch(e => console.log("Không thể phát video:", e));
+        }
+
         function handleFirstInteraction() {
-            enableAudio();
+            enableBackgroundAudio();
             switchScreen('screen-1', 'screen-2');
         }
         
         // Gán sự kiện cho lần tương tác đầu tiên (Nhấn phong bì)
         document.getElementById('screen-1').addEventListener('click', handleFirstInteraction);
-        // -----------------------------------------------------------------
-
-        // Các sự kiện chuyển màn hình còn lại
+        
+        // Các sự kiện chuyển màn hình
         document.querySelector('#screen-2 .btn-heart').addEventListener('click', () => switchScreen('screen-2', 'screen-3'));
         document.querySelector('#screen-3 .btn').addEventListener('click', () => switchScreen('screen-3', 'screen-4'));
         document.querySelector('#screen-4 .btn').addEventListener('click', () => switchScreen('screen-4', 'screen-5'));
-        document.querySelector('#screen-5 .btn').addEventListener('click', () => switchScreen('screen-5', 'screen-6'));
-
+        
+        // Gán sự kiện chuyển từ màn 5 sang màn 6 VÀ kích hoạt chức năng video
+        document.querySelector('#screen-5 .btn').addEventListener('click', () => {
+            // Chuyển màn hình
+            switchScreen('screen-5', 'screen-6');
+            // Kích hoạt video
+            playVideoAndStopBackground();
+        });
+        
         // Cập nhật countdown
         function updateCountdown() {
             const now = new Date();
