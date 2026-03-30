@@ -1,302 +1,851 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sinh Nhật Vui Vẻ ♡</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;700&display=swap" rel="stylesheet">
-    
+    <title>CV – Ngọc Hải | Chuyên Viên Thu Hồi Nợ</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <style>
         :root {
-            --pink-light: #ffebee;
-            --pink-main: #ffc1e3;
-            --pink-dark: #ff80ab;
-            --red-heart: #ff1744;
-            --text-dark: #d81b60;
-            --font-main: 'Mali', cursive; 
+            --black: #0a0a0a;
+            --dark: #111111;
+            --panel: #181818;
+            --border: #2a2a2a;
+            --red: #c8102e;
+            --red-dark: #8b0a1e;
+            --red-glow: rgba(200, 16, 46, 0.18);
+            --gold: #d4a843;
+            --gold-light: #f0c96a;
+            --white: #f0ede8;
+            --muted: #888;
+            --text: #ccc9c4;
         }
 
-        * {
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
-            font-family: var(--font-main);
-            background: var(--pink-light) url('https://png.pngtree.com/background/20220731/original/pngtree-cute-pink-kawaii-background-strawberry-picture-image_1912741.jpg') repeat;
-            background-size: 400px;
+            background-color: var(--black);
+            color: var(--text);
+            font-family: 'Barlow', sans-serif;
+            font-weight: 400;
+            line-height: 1.6;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* Đảm bảo nội dung không tràn ra ngoài body */
-            overflow-x: hidden; 
+            overflow-x: hidden;
         }
 
-        .container {
-            width: 100%;
-            max-width: 420px;
-            /* ĐIỀU CHỈNH QUAN TRỌNG: Loại bỏ height: 100vh cố định */
-            min-height: 100vh;
-            padding: 20px;
+        /* Noise texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        .page {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── HEADER ── */
+        .header {
+            position: relative;
+            padding: 60px 50px 40px;
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+            animation: fadeDown 0.7s ease both;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--red), var(--gold), var(--red));
+            background-size: 200%;
+            animation: shimmer 3s linear infinite;
+        }
+
+        .header::after {
+            content: 'GALAXY DEBT TRADING';
+            position: absolute;
+            bottom: 10px;
+            right: 50px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 11px;
+            letter-spacing: 4px;
+            color: var(--red);
+            opacity: 0.35;
+        }
+
+        /* Big decorative number */
+        .deco-number {
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 180px;
+            line-height: 1;
+            color: var(--red);
+            opacity: 0.05;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .header-tag {
+            display: inline-block;
+            background: var(--red);
+            color: #fff;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            margin-bottom: 16px;
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%);
+        }
+
+        .name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(64px, 10vw, 110px);
+            line-height: 0.9;
+            color: var(--white);
+            letter-spacing: 2px;
+            text-shadow: 0 0 40px rgba(200, 16, 46, 0.2);
+        }
+
+        .name span {
+            color: var(--red);
+        }
+
+        .position {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 300;
+            font-size: 18px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-top: 8px;
+            margin-bottom: 30px;
+        }
+
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--muted);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .contact-item .icon {
+            width: 20px;
+            height: 20px;
+            background: var(--red-glow);
+            border: 1px solid var(--red);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            flex-shrink: 0;
+            color: var(--red);
+        }
+
+        /* ── MAIN LAYOUT ── */
+        .body-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 0;
+        }
+
+        .main-col {
+            padding: 40px 50px;
+            border-right: 1px solid var(--border);
+        }
+
+        .side-col {
+            padding: 40px 30px;
+            background: var(--dark);
+        }
+
+        /* ── SECTION ── */
+        .section {
+            margin-bottom: 40px;
+            animation: fadeUp 0.7s ease both;
+        }
+
+        .section:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .section:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .section:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .section-label {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 13px;
+            letter-spacing: 5px;
+            color: var(--red);
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--red-dark), transparent);
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 28px;
+            color: var(--white);
+            letter-spacing: 1px;
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+
+        .section-sub {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 13px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .section-date {
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 14px;
+            font-family: 'Barlow Condensed', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        /* ── OBJECTIVE BOX ── */
+        .objective-box {
+            background: var(--panel);
+            border-left: 3px solid var(--red);
+            padding: 20px 24px;
+            font-size: 14px;
+            line-height: 1.75;
+            color: var(--text);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .objective-box::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 80px;
+            color: var(--red);
+            opacity: 0.1;
+            line-height: 1;
+        }
+
+        /* ── BULLET LIST ── */
+        .bullet-list {
+            list-style: none;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
+            gap: 10px;
         }
 
-        .screen {
+        .bullet-list li {
+            display: flex;
+            gap: 12px;
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        .bullet-list li::before {
+            content: '▸';
+            color: var(--red);
+            flex-shrink: 0;
+            margin-top: 2px;
+            font-size: 12px;
+        }
+
+        /* ── EXP CARD ── */
+        .exp-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 20px 22px;
+            margin-bottom: 16px;
+            position: relative;
+            transition: border-color 0.3s;
+        }
+
+        .exp-card:hover {
+            border-color: var(--red-dark);
+            box-shadow: 0 0 20px var(--red-glow);
+        }
+
+        .exp-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--red);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .exp-card:hover::before {
+            opacity: 1;
+        }
+
+        /* ── SKILL BARS (side) ── */
+        .skill-item {
+            margin-bottom: 18px;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 6px;
+        }
+
+        .skill-name {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+            color: var(--white);
+            text-transform: uppercase;
+        }
+
+        .skill-level {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 13px;
+            color: var(--red);
+            letter-spacing: 1px;
+        }
+
+        .skill-bar-bg {
+            height: 4px;
+            background: var(--border);
+            border-radius: 0;
+            overflow: hidden;
+        }
+
+        .skill-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--red), var(--gold));
+            border-radius: 0;
+            animation: growBar 1s ease both;
+            transform-origin: left;
+        }
+
+        @keyframes growBar {
+            from {
+                width: 0 !important;
+            }
+
+            to {}
+        }
+
+        /* ── SIDE BADGE ── */
+        .side-badge {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            transition: border-color 0.3s;
+        }
+
+        .side-badge:hover {
+            border-color: var(--red-dark);
+        }
+
+        .side-badge .badge-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .side-badge .badge-text {
+            color: var(--text);
+            line-height: 1.4;
+            font-family: 'Barlow', sans-serif;
+        }
+
+        .side-badge .badge-text strong {
+            display: block;
+            color: var(--white);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        /* ── KPI STRIP ── */
+        .kpi-strip {
+            display: flex;
+            gap: 0;
+            margin-bottom: 32px;
+            border: 1px solid var(--border);
+        }
+
+        .kpi-box {
+            flex: 1;
+            padding: 16px 10px;
+            text-align: center;
+            border-right: 1px solid var(--border);
+            background: var(--panel);
+        }
+
+        .kpi-box:last-child {
+            border-right: none;
+        }
+
+        .kpi-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            color: var(--red);
+            line-height: 1;
+            display: block;
+        }
+
+        .kpi-label {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        /* ── MOTTO ── */
+        .motto {
+            background: var(--red);
+            padding: 16px 24px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+            letter-spacing: 2px;
+            color: #fff;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .motto::before {
+            content: '';
             position: absolute;
             inset: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 1s ease;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shimmer {
+            from {
+                background-position: 0% 50%;
+            }
+
+            to {
+                background-position: 200% 50%;
+            }
+        }
+
+        /* ── FOOTER ── */
+        .footer {
             text-align: center;
             padding: 20px;
-            /* ĐIỀU CHỈNH CHO MOBILE: Cho phép cuộn nếu nội dung quá dài (chỉ nên xảy ra hiếm hoi) */
-            max-height: 100vh; 
-            overflow-y: auto; 
-            -webkit-overflow-scrolling: touch;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: var(--border);
+            text-transform: uppercase;
+            border-top: 1px solid var(--border);
         }
 
-        .screen.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        /* Tối ưu hóa kích thước chữ cho màn hình nhỏ hơn */
-        h1 {
-            font-size: 2.5rem; /* Giảm từ 3rem */
-            color: var(--red-heart);
-            margin-bottom: 15px; /* Giảm margin */
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        p {
-            font-size: 1.1rem; /* Giảm từ 1.2rem */
-            color: var(--text-dark);
-            line-height: 1.5;
-            margin: 15px 0; /* Giảm margin */
-        }
-
-        img, video {
-            max-width: 90%; /* Đảm bảo hình ảnh/video không vượt quá 90% chiều rộng màn hình */
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .envelope {
-            cursor: pointer;
-            max-width: 250px; /* Giảm kích thước phong bì */
-        }
-
-        .hint {
-            margin-top: 30px; /* Giảm margin */
-            font-size: 1.2rem; /* Giảm từ 1.3rem */
-            color: var(--pink-dark);
-        }
-
-        .btn {
-            margin-top: 25px; /* Giảm margin */
-            padding: 12px 25px; /* Giảm padding */
-            font-size: 1.2rem; /* Giảm từ 1.4rem */
-            /* Các style khác giữ nguyên */
-            background: var(--pink-main);
-            border: 3px dashed var(--pink-dark);
-            border-radius: 50px;
-            color: var(--text-dark);
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .btn-heart {
-            width: 100px; /* Giảm kích thước trái tim */
-            height: 100px;
-            /* Các style khác giữ nguyên */
-            background: url('https://i.etsystatic.com/25364213/r/il/594e4b/5148949664/il_570xN.5148949664_kfr9.jpg') center/cover;
-            border: none;
-            border-radius: 50%;
-            font-size: 1.1rem;
-            color: white;
-            text-shadow: 1px 1px 2px black;
-        }
-
-        .message-box {
-            padding: 20px; /* Giảm padding */
-            /* Các style khác giữ nguyên */
-            background: rgba(255, 255, 255, 0.7);
-            border: 4px dotted var(--pink-dark);
-            border-radius: 20px;
-            max-width: 90%;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .bow {
-            width: 120px; /* Giảm kích thước nơ */
-            margin-bottom: 15px;
-        }
-
-        .counter {
-            gap: 10px; /* Giảm khoảng cách giữa các phần tử */
-            margin: 20px 0;
-            font-size: 1.3rem;
-            flex-wrap: wrap;
-        }
-
-        .counter span {
-            padding: 8px 15px;
-            min-width: 80px;
-        }
-        
-        /* Tối ưu hóa riêng cho màn hình nhỏ hơn 480px */
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2.2rem;
+        @media print {
+            body {
+                background: #fff;
+                color: #111;
             }
-            p {
-                font-size: 1.0rem;
+
+            .header::before {
+                display: none;
             }
-            .counter span {
-                font-size: 1.2rem;
+
+            .deco-number {
+                display: none;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .body-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-col {
+                padding: 30px 24px;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .side-col {
+                padding: 30px 24px;
+            }
+
+            .header {
+                padding: 40px 24px 30px;
+            }
+
+            .header::after {
+                display: none;
+            }
+
+            .kpi-strip {
+                flex-wrap: wrap;
+            }
+
+            .kpi-box {
+                min-width: 45%;
             }
         }
     </style>
 </head>
+
 <body>
-    <audio id="nhac-nen" src="nhac.mp3" autoplay loop muted></audio>
 
-    <div class="container">
-        <div id="screen-1" class="screen active">
-            <img src="https://thumbs.dreamstime.com/b/heart-card-love-note-pink-romantic-message-cute-envelope-handmade-doodle-style-design-perfect-valentine-celebration-413266197.jpg" alt="Phong bì" class="envelope">
-            <div class="hint">Nhấn vào phong bì đi nào ♡</div>
-        </div>
+    <div class="page">
 
-        <div id="screen-2" class="screen">
-            <h1>Sinh Nhật Dương Vui Vẻ!</h1>
-            <img src="https://media.tenor.com/KN1Hrg7D10UAAAAM/my-melody-sanrio.gif" alt="My Melody tặng quà">
-            <button class="btn btn-heart">Nhấn trái tim ♡</button>
-        </div>
-
-        <div id="screen-3" class="screen">
-            <img src="anh2.jpg" alt="Nơ hồng" class="bow">
-            <div class="message-box">
-                <p>Hôm nay sinh nhật em phải không? Chúc em tuổi mới thật nhiều niềm vui, luôn khỏe mạnh và gặp toàn điều tốt đẹp nhé!<br><br>
-                Em hay mang năng lượng tích cực cho mọi người xung quanh lắm đó, hy vọng năm nay em sẽ còn tỏa sáng hơn nữa! ♡</p>
+        <!-- HEADER -->
+        <header class="header">
+            <div class="deco-number">01</div>
+            <div class="header-tag">🔥 HOT – Ứng tuyển ngay</div>
+            <h1 class="name">NGỌC <span>HẢI</span></h1>
+            <p class="position">Chuyên Viên Xử Lý Tín Dụng &nbsp;/&nbsp; Thu Hồi Nợ — Hard Collection</p>
+            <div class="contact-row">
+                <div class="contact-item"><span class="icon">📅</span>23/09/2003</div>
+                <div class="contact-item"><span class="icon">📞</span>0999.999.999</div>
+                <div class="contact-item"><span class="icon">✉</span>haipromax@mail.com</div>
+                <div class="contact-item"><span class="icon">📍</span>TP. Hồ Chí Minh</div>
             </div>
-            <button class="btn">Nhấn tiếp đi ♡</button>
-        </div>
+        </header>
 
-        <div id="screen-4" class="screen">
-            <img src="https://media.tenor.com/pDBImHYGbgwAAAAM/my-melody-sanrio.gif" alt="My Melody dễ thương">
-            <p style="font-size:1.6rem;margin:20px 0;">Đếm ngược đến ngày đặc biệt của em ♡</p>
-            <div class="counter">
-                <span id="days">0 Ngày</span> |
-                <span id="hours">00 Giờ</span> |
-                <span id="minutes">00 Phút</span> |
-                <span id="seconds">00 Giây</span>
+        <!-- KPI STRIP -->
+        <div style="padding: 0 50px; background: var(--dark);">
+            <div class="kpi-strip">
+                <div class="kpi-box">
+                    <span class="kpi-num">TOP 3</span>
+                    <span class="kpi-label">Thu hồi nợ</span>
+                </div>
+                <div class="kpi-box">
+                    <span class="kpi-num">2+</span>
+                    <span class="kpi-label">Năm thực chiến</span>
+                </div>
+                <div class="kpi-box">
+                    <span class="kpi-num">100%</span>
+                    <span class="kpi-label">Cam kết KPI</span>
+                </div>
+                <div class="kpi-box">
+                    <span class="kpi-num">0</span>
+                    <span class="kpi-label">Hồ sơ bỏ cuộc</span>
+                </div>
             </div>
-            <button class="btn">Nhấn tiếp đi ♡</button>
         </div>
 
-        <div id="screen-5" class="screen">
-            <img src="anh.jpg" alt="Ảnh bé funny" class="photo" style="max-width:250px;">
-                    <p style="max-width:90%;margin-top:20px;font-size:1.1rem;">Chúc mừng sinh nhật vị nha sĩ xinh đẹp!
-Thật may mắn cho em, vì em có thể dùng sự khéo léo để tạo ra những nụ cười rạng rỡ cho mọi người. 
-Còn anh, anh chỉ muốn dùng kinh nghiệm của một người làm Công an để đảm bảo "an ninh tuyệt đối" cho nụ cười rạng rỡ đó của riêng em thôi.
-Chúc em tuổi mới luôn vui vẻ và thành công!♡</p>
-                
-            <button class="btn">Nhấn tiếp đi ♡</button>
+        <!-- BODY -->
+        <div class="body-grid">
+
+            <!-- MAIN -->
+            <main class="main-col">
+
+                <!-- MỤC TIÊU -->
+                <div class="section">
+                    <div class="section-label">Mục tiêu nghề nghiệp</div>
+                    <div class="objective-box">
+                        Sử dụng bản lĩnh thực chiến, độ "lì" và kỹ năng nắm bắt tâm lý nhạy bén để đập tan mọi lý do
+                        chây ì của khách hàng. Mục tiêu là gia nhập <strong style="color:var(--gold)">Galaxy Debt
+                            Trading</strong>, quét sạch các tệp hồ sơ nợ xấu (nợ nhóm 3, nhóm 4), mang dòng tiền về cho
+                        công ty với tỷ lệ hoàn thành KPI luôn ở mức Top đầu. Đã nhận hồ sơ là phải ra số, làm việc dứt
+                        khoát, nói ít làm nhiều.
+                    </div>
+                </div>
+
+                <!-- KỸ NĂNG -->
+                <div class="section">
+                    <div class="section-label">Kỹ năng thực chiến nổi bật</div>
+
+                    <div class="exp-card">
+                        <div class="section-sub">🎙 Giọng nói thép & Áp đảo tâm lý</div>
+                        <p style="font-size:13.5px; line-height:1.7;">Âm lực tốt, giọng điệu rõ ràng, đủ độ "rắn" và uy
+                            lực để trên cơ những khách hàng cố tình diễn kịch hay lớn tiếng.</p>
+                    </div>
+
+                    <div class="exp-card">
+                        <div class="section-sub">🧠 Đọc vị con nợ</div>
+                        <p style="font-size:13.5px; line-height:1.7;">Chỉ cần qua vài câu chào hỏi là bắt bài được khách
+                            đang nói thật hay văn vở. Chuẩn bị sẵn hàng chục kịch bản phản biện khiến khách hàng không
+                            thể chối cãi.</p>
+                    </div>
+
+                    <div class="exp-card">
+                        <div class="section-sub">⚙️ Thần kinh thép – Chịu áp lực cực cao</div>
+                        <p style="font-size:13.5px; line-height:1.7;">Không cảm xúc trước những lời chửi bới, đe dọa hay
+                            khóc lóc từ đầu dây bên kia. Chỉ quan tâm một thứ duy nhất: <strong
+                                style="color:var(--gold)">Bao giờ tiền nổ tài khoản?</strong></p>
+                    </div>
+
+                    <div class="exp-card">
+                        <div class="section-sub">🔍 Nghiệp vụ "Bám đuổi"</div>
+                        <p style="font-size:13.5px; line-height:1.7;">Kỹ năng điều tra, truy vết thông tin lẩn trốn
+                            nhanh nhạy. Đã khóa mục tiêu là bám sát ván, áp dụng linh hoạt từ biện pháp khuyên bảo nhẹ
+                            nhàng đến răn đe gắt gao (trong khuôn khổ cho phép).</p>
+                    </div>
+                </div>
+
+                <!-- KINH NGHIỆM -->
+                <div class="section">
+                    <div class="section-label">Kinh nghiệm lăn lộn</div>
+
+                    <div class="exp-card">
+                        <div class="section-title">Công ty Tài chính Hỗ trợ Nhanh</div>
+                        <div class="section-sub">Chuyên viên Xử lý Nợ Xấu</div>
+                        <div class="section-date">06/2022 – 12/2023 &nbsp;|&nbsp; Khu vực Chợ Lớn</div>
+                        <ul class="bullet-list">
+                            <li>Tiếp nhận và xử lý các tệp khách hàng "cộm cán", mất liên lạc hoặc có thái độ thách
+                                thức, chống đối.</li>
+                            <li>Áp dụng các biện pháp nghiệp vụ qua điện thoại để tạo áp lực liên tục lên khách hàng và
+                                những người liên quan, buộc họ phải lên phương án trả nợ.</li>
+                            <li>Thường xuyên lọt <strong style="color:var(--red)">Top 3</strong> nhân viên có tỷ lệ thu
+                                hồi nợ cao nhất sàn trong các tháng cuối năm.</li>
+                            <li>Phá băng thành công nhiều bộ hồ sơ tưởng chừng như đã "chết".</li>
+                        </ul>
+                    </div>
+
+                    <div class="exp-card">
+                        <div class="section-title">Khu Phức Hợp Giải Trí Sài Gòn Night</div>
+                        <div class="section-sub">Tổ trưởng Đội Giám sát & An ninh</div>
+                        <div class="section-date">01/2021 – 05/2022</div>
+                        <ul class="bullet-list">
+                            <li>Quản lý trật tự, xử lý êm thấm các thành phần gây rối.</li>
+                            <li>Luyện được khả năng quan sát sắc sảo, giải quyết xung đột dứt khoát.</li>
+                            <li>Biết dùng "lời nói nặng ngàn cân" để dẹp loạn mà không cần phải đụng tay đụng chân.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- HỌC VẤN -->
+                <div class="section">
+                    <div class="section-label">Trình độ học vấn</div>
+                    <div class="exp-card">
+                        <div class="section-title">Trường Đời & Các khóa thực chiến xã hội</div>
+                        <div class="section-sub">Tốt nghiệp THPT</div>
+                        <div class="section-date">2021</div>
+                        <ul class="bullet-list">
+                            <li>Không có bằng cấp học thuật cao siêu nhưng sở hữu "bằng cử nhân" về kỹ năng sinh tồn,
+                                thấu hiểu quy luật xã hội.</li>
+                            <li style="color: var(--gold); font-style: italic;">Châm ngôn: Bằng cấp chứng minh bạn từng
+                                đi học, còn <strong style="color:var(--gold)">tiền thu về chứng minh bạn làm được
+                                    việc.</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </main>
+
+            <!-- SIDE -->
+            <aside class="side-col">
+
+                <div style="animation: fadeUp 0.5s ease both;">
+
+                    <!-- LƯƠNG MỤC TIÊU -->
+                    <div class="section-label">Lương mong muốn</div>
+                    <div style="background: var(--red); padding: 20px; text-align:center; margin-bottom: 28px;">
+                        <span
+                            style="font-family:'Bebas Neue',sans-serif; font-size: 38px; color:#fff; display:block; line-height:1;">15
+                            – 30</span>
+                        <span
+                            style="font-family:'Barlow Condensed',sans-serif; font-size:13px; letter-spacing:3px; color:rgba(255,255,255,0.8); text-transform:uppercase;">Triệu
+                            VNĐ / tháng</span>
+                    </div>
+
+                    <!-- SKILL BARS -->
+                    <div class="section-label">Năng lực cốt lõi</div>
+                    <div style="margin-bottom: 28px;">
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Thuyết phục / Áp lực</span>
+                                <span class="skill-level">96%</span>
+                            </div>
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill" style="width:96%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Đọc vị khách hàng</span>
+                                <span class="skill-level">90%</span>
+                            </div>
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill" style="width:90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Chịu áp lực</span>
+                                <span class="skill-level">99%</span>
+                            </div>
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill" style="width:99%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Xử lý xung đột</span>
+                                <span class="skill-level">88%</span>
+                            </div>
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill" style="width:88%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Điều tra / Truy vết</span>
+                                <span class="skill-level">85%</span>
+                            </div>
+                            <div class="skill-bar-bg">
+                                <div class="skill-bar-fill" style="width:85%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SỞ THÍCH -->
+                    <div class="section-label">Sở thích & Thông tin thêm</div>
+
+                    <div class="side-badge">
+                        <span class="badge-icon">🥊</span>
+                        <div class="badge-text">
+                            <strong>Muay Thái & Boxing</strong>
+                            Rèn kỷ luật, phản xạ nhanh và sự điềm tĩnh trong mọi tình huống căng thẳng.
+                        </div>
+                    </div>
+
+                    <div class="side-badge">
+                        <span class="badge-icon">🤝</span>
+                        <div class="badge-text">
+                            <strong>Giao du rộng</strong>
+                            Có mối quan hệ anh em xã hội tốt, biết cách tạo dựng uy tín cá nhân.
+                        </div>
+                    </div>
+
+                    <div class="side-badge">
+                        <span class="badge-icon">🔥</span>
+                        <div class="badge-text">
+                            <strong>Sẵn sàng cày ải</strong>
+                            Mọi ca làm việc, càng áp lực càng hứng thú.
+                        </div>
+                    </div>
+
+                    <!-- MOTTO -->
+                    <div class="motto" style="margin-top:24px;">
+                        ĐÃ NHẬN HỒ SƠ<br>LÀ PHẢI RA SỐ
+                    </div>
+
+                    <!-- APPLY BUTTON -->
+                    <a href="mailto:haipromax@mail.com" style="
+          display: block;
+          background: transparent;
+          border: 1px solid var(--red);
+          color: var(--red);
+          text-align: center;
+          padding: 14px;
+          font-family: 'Bebas Neue', sans-serif;
+          font-size: 18px;
+          letter-spacing: 3px;
+          text-decoration: none;
+          text-transform: uppercase;
+          transition: all 0.3s;
+        " onmouseover="this.style.background='var(--red)'; this.style.color='#fff';"
+                        onmouseout="this.style.background='transparent'; this.style.color='var(--red)';">
+                        ỨNG TUYỂN NGAY →
+                    </a>
+
+                </div>
+            </aside>
         </div>
 
-        <div id="screen-6" class="screen">
-            <video id="final-video" src="video.mp4" playsinline controls></video>
-            <p style="font-size:1.8rem;margin-top:20px;">Chúc sinh nhật em vui vẻ lần nữa nha ♡</p>
+        <div class="footer">
+            Galaxy Debt Trading Company Limited &nbsp;·&nbsp; CV – Ngọc Hải &nbsp;·&nbsp; 2024
         </div>
+
     </div>
 
-    <script>
-        // Ngày sinh nhật: 16 tháng 12 năm 2025
-        const targetDate = new Date('2025-12-16T00:00:00');
-
-        // Lấy phần tử audio và video
-        const audioPlayer = document.getElementById('nhac-nen');
-        const finalVideo = document.getElementById('final-video');
-
-        function switchScreen(current, next) {
-            document.getElementById(current).classList.remove('active');
-            document.getElementById(next).classList.add('active');
-        }
-        
-        // --- CHỨC NĂNG BẬT TIẾNG & ĐẶT ÂM LƯỢNG (Dùng cho nhạc nền) ---
-        function enableBackgroundAudio() {
-            audioPlayer.volume = 1.0; 
-            audioPlayer.muted = false; 
-            audioPlayer.play().catch(e => console.log("Không thể phát nhạc nền sau tương tác:", e));
-
-            // Gỡ bỏ sự kiện này sau khi đã thực hiện để tránh lặp lại
-            document.getElementById('screen-1').removeEventListener('click', handleFirstInteraction);
-        }
-
-        // --- CHỨC NĂNG PHÁT VIDEO & TẮT NHẠC NỀN (Dùng cho màn hình 6) ---
-        function playVideoAndStopBackground() {
-            // 1. Tắt nhạc nền
-            audioPlayer.pause();
-            audioPlayer.currentTime = 0; // Đặt lại về đầu nếu cần
-
-            // 2. Thiết lập và phát video
-            finalVideo.volume = 1.0; // Volume max
-            finalVideo.play().catch(e => console.log("Không thể phát video:", e));
-        }
-
-        function handleFirstInteraction() {
-            enableBackgroundAudio();
-            switchScreen('screen-1', 'screen-2');
-        }
-        
-        // Gán sự kiện cho lần tương tác đầu tiên (Nhấn phong bì)
-        document.getElementById('screen-1').addEventListener('click', handleFirstInteraction);
-        
-        // Các sự kiện chuyển màn hình
-        document.querySelector('#screen-2 .btn-heart').addEventListener('click', () => switchScreen('screen-2', 'screen-3'));
-        document.querySelector('#screen-3 .btn').addEventListener('click', () => switchScreen('screen-3', 'screen-4'));
-        document.querySelector('#screen-4 .btn').addEventListener('click', () => switchScreen('screen-4', 'screen-5'));
-        
-        // Gán sự kiện chuyển từ màn 5 sang màn 6 VÀ kích hoạt chức năng video
-        document.querySelector('#screen-5 .btn').addEventListener('click', () => {
-            // Chuyển màn hình
-            switchScreen('screen-5', 'screen-6');
-            // Kích hoạt video
-            playVideoAndStopBackground();
-        });
-        
-        // Cập nhật countdown
-        function updateCountdown() {
-            const now = new Date();
-            let diff = targetDate - now;
-
-            if (diff < 0) diff = 0;
-
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-            document.getElementById('days').textContent = `${days} Ngày`;
-            document.getElementById('hours').textContent = String(hours).padStart(2, '0') + ' Giờ';
-            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0') + ' Phút';
-            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0') + ' Giây';
-        }
-
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
-    </script>
 </body>
+
 </html>
